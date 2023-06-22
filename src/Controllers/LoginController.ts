@@ -1,5 +1,4 @@
 import {Router,Request, Response } from 'express'
-import User from '../Domain/Entidades/Clientes';
 import UsuarioLogin from '../Domain/Entidades/UsuarioLogin';
 
 const routerLogin = Router()
