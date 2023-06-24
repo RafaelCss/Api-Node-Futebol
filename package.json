@@ -6,8 +6,7 @@
   "scripts": {
     "test": "test",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules ./server.ts",
-    "build": "tsc",
-    "start": "node out/server.js"
+    "vercel-build" :"npx prisma generate"
   },
   "author": "Rafael carlos de souza",
   "license": "ISC",
