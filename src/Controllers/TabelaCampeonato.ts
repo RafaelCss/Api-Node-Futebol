@@ -1,6 +1,5 @@
 import { Router, Request, Response } from 'express'
-import servico from '../Domain/Comandos/ComandoCliente';
-import { Cliente } from '../Domain/Interfaces/Cliente';
+import servico from '../Domain/Comandos/ComandoCliente';;
 import IPaginacao from '../Domain/Interfaces/Paginacao';
 
 const tabelaCampeonato = Router();
