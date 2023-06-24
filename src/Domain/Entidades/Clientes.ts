@@ -22,7 +22,7 @@ class Clientes implements Cliente {
 
   private async ValidarNome(nome: string) {
     if (nome.length < 3) {
-      this.erro.push({
+      return this.erro.push({
         campo: "nome",
         mensagem: "Campo invalido"
       })
@@ -32,10 +32,10 @@ class Clientes implements Cliente {
   }
 
   private async ValidarTelefone(telefone: string) {
-    if (telefone) {
+    if (telefone.length > 8 || telefone.length < 13) {
       return this.telefone = telefone
     }
-    this.erro.push({
+    return this.erro.push({
       campo: 'telefone',
       mensagem: "Campo invalido"
     })
@@ -46,7 +46,7 @@ class Clientes implements Cliente {
     if (regex.test(email) === true) {
       return this.email = email
     }
-    this.erro.push({
+    return this.erro.push({
       campo: "email",
       mensagem: "Campo invalido"
     })
@@ -57,7 +57,7 @@ class Clientes implements Cliente {
     if (newCpf) {
       return this.cpf = newCpf
     }
-    this.erro.push({
+    return this.erro.push({
       campo: 'cpf',
       mensagem: "Campo invalido"
     })

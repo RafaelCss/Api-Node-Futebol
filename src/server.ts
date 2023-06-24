@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors"
-import routerLogin from "./src/Controllers/LoginController";
-import routerClientes from "./src/Controllers/ClientesController";
+import routerLogin from "./Controllers/LoginController";
+import routerClientes from "./Controllers/ClientesController";
 
 
 
