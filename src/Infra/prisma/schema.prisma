@@ -38,3 +38,30 @@ model User {
   create_at DateTime @default(now())
   update_at DateTime @updatedAt
 }
+
+model Tabela {
+  id            String   @id @default("_id") @map("_id")
+  DataDeCriacao DateTime
+  posicao       Int
+  pontos        Int
+  ultimos_jogos  String[]
+  jogos         Int
+  vitorias      Int
+  empates       Int
+  derrotas      Int
+  gols_pro       Int
+  gols_contra    Int
+  saldo_gols     Int
+  aproveitamento Int
+  variacao_posicao Int
+  time          Time?
+}
+
+model Time {
+  time_id        Int     @id @map("_id")
+  nomePopular   String
+  sigla         String
+  escudo        String
+  tabelaId      String @unique
+  tabela        Tabela @relation(fields: [tabelaId], references: [id])
+}

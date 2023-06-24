@@ -3,6 +3,7 @@ import { Router, Request, Response } from 'express'
 import cors from "cors"
 import routerLogin from "./Controllers/LoginController";
 import routerClientes from "./Controllers/ClientesController";
+import tabelaCampeonato from "./Controllers/TabelaCampeonato";
 
 
 
@@ -13,6 +14,7 @@ app.use(cors({ origin: "*" }))
 app.use(express.json());
 app.use("/api", routerLogin)
 app.use("/api", routerClientes)
+app.use("/api", tabelaCampeonato)
 
 const port = process.env.PORT_SERVER || 3001
 
