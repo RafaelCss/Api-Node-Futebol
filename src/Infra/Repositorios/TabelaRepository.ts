@@ -1,42 +1,31 @@
 
-import { Cliente } from '../../Domain/Interfaces/Cliente';
+
 import IPaginacao from '../../Domain/Interfaces/Paginacao';
 import { Repository } from '../../Domain/Interfaces/Repositorio';
 import Retorno from '../../Domain/Interfaces/Retorno';
-import { PrismaClient } from "@prisma/client";
+import { TabelaViewModel } from '../../Domain/Interfaces/TabelaCampeonato';
+import { recuperarDadosDaTabela } from '../MongoDb';
 
 
-class TabelaRepository implements Repository<Retorno<Cliente>> {
-  private prisma: PrismaClient;
+
+
+class TabelaRepository implements Repository<Retorno<TabelaViewModel>> {
+
 
   constructor() {
-    this.prisma = new PrismaClient();
   }
 
   //#region TODO: Buscar clientes
-  async findMany(query?: IPaginacao | undefined): Promise<Retorno<any>> {
-    // await this.criar()
-    await this.prisma.$connect()
-    const total = await this.prisma.tabela.count()
-
-    const clientes = await this.prisma.tabela.findMany()
-    const retorno: Retorno<any> = {
-      dados: clientes,
-      paginacao: {
-        total,
-        skip: Number(query?.skip),
-        take: Number(query?.take)
-      }
-    }
-
-    this.desconectar()
+  async findMany(query?: IPaginacao | undefined): Promise<Retorno<any[]>> {
+    const retorno: any = await recuperarDadosDaTabela()
+      .then((dados) => dados)
+      .catch((error) => {
+        console.error('Erro ao recuperar os dados da tabela:', error);
+      });
     return retorno
   }
   //#endregion
 
-  private async desconectar() {
-    await this.prisma.$disconnect();
-  }
 
 }
 

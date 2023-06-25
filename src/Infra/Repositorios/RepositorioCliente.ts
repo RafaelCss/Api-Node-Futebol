@@ -4,19 +4,18 @@ import IPaginacao from '../../Domain/Interfaces/Paginacao';
 import { Repository } from '../../Domain/Interfaces/Repositorio';
 import Retorno from '../../Domain/Interfaces/Retorno';
 import { PrismaClient } from "@prisma/client";
+import prisma from './ClientPrisma';
 
 
 class ClienteRepository implements Repository<Retorno<Cliente>> {
-  private prisma: PrismaClient;
 
   constructor() {
-    this.prisma = new PrismaClient();
   }
 
   //#region TODO: Criar um cliente
   async criar(data: Cliente) {
-    await this.prisma.$connect()
-    const cliente = await this.prisma.cliente.create({
+    await prisma.$connect()
+    const cliente = await prisma.cliente.create({
       data: {
         cpf: data.cpf,
         email: data.email,
@@ -33,7 +32,7 @@ class ClienteRepository implements Repository<Retorno<Cliente>> {
         }
       }
     })
-    const returnUser = await this.prisma.cliente.findUnique({
+    const returnUser = await prisma.cliente.findUnique({
       where: {
         id: cliente.id,
       },
@@ -49,11 +48,11 @@ class ClienteRepository implements Repository<Retorno<Cliente>> {
 
   //#region TODO: Buscar clientes
   async findMany(query?: IPaginacao | undefined): Promise<Retorno<any>> {
-    await this.prisma.$connect()
-    const total = await this.prisma.cliente.count()
+    await prisma.$connect()
+    const total = await prisma.cliente.count()
     const skip = query && (query?.skip == 0 ? query?.skip + 1 : query?.skip - 1) * query.take
 
-    const clientes = await this.prisma.cliente.findMany({
+    const clientes = await prisma.cliente.findMany({
       include: {
         endereco: true,
       },
@@ -80,8 +79,8 @@ class ClienteRepository implements Repository<Retorno<Cliente>> {
 
   // #region TODO: Deletar cliente
   async delete(id: string): Promise<Retorno<any>> {
-    await this.prisma.$connect()
-    const resultado = await this.prisma.cliente.delete({
+    await prisma.$connect()
+    const resultado = await prisma.cliente.delete({
       where: {
         id
       }
@@ -100,9 +99,9 @@ class ClienteRepository implements Repository<Retorno<Cliente>> {
 
   //#region TODO: Editar cliente
   async editar(id: string, data: Cliente): Promise<Retorno<Cliente>> {
-    await this.prisma.$connect()
+    await prisma.$connect()
     let erro;
-    const updateCliente = await this.prisma.cliente.update({
+    const updateCliente = await prisma.cliente.update({
       where: {
         id
       },
@@ -143,7 +142,7 @@ class ClienteRepository implements Repository<Retorno<Cliente>> {
 
 
   private async desconectar() {
-    await this.prisma.$disconnect();
+    await prisma.$disconnect();
   }
 
 }

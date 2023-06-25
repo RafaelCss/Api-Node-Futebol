@@ -54,14 +54,14 @@ model Tabela {
   saldo_gols     Int
   aproveitamento Int
   variacao_posicao Int
-  time          Time?
+  equipe             Equipe?
 }
 
-model Time {
+model Equipe {
   time_id        Int     @id @map("_id")
-  nomePopular   String
+  nome_popular  String
   sigla         String
   escudo        String
   tabelaId      String @unique
-  tabela        Tabela @relation(fields: [tabelaId], references: [id])
+  tabela        Tabela @relation(fields: [tabelaId],references: [id])
 }

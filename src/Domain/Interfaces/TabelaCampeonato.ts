@@ -1,6 +1,6 @@
 
 export interface TabelaViewModel {
-  id: ObjectId;
+  id: string;
   posicao: number;
   pontos: number;
   time: Time;
