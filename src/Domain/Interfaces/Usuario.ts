@@ -1,24 +1,8 @@
-interface Usuario {
-   name : {
-      first : string
-      last : string
-   }
-   email : string
-   login :{
-      uuid : string
-      username : string
-   }
-   dob : {
-      age : number | string
-   }
-   picture : {
-      medium : string
-   }
+export interface Usuario {
+  id?: string
+  nome: string
+  email: string
+  senha: string
+  create_at?: Date
+  update_at?: Date
 }
-
-
-
-
-
-
-export default Usuario

@@ -1,15 +1,16 @@
 import { MongoClient } from 'mongodb';
 import dotEnv from 'dotenv'
-const dot = dotEnv.config()
+import { TabelaViewModel } from '../../Domain/Interfaces/TabelaCampeonato';
 
+const dot = dotEnv.config()
+const uri = process.env.DATABASE_URL;
+const dbName = 'Teste';
+const collectionName = 'TabelaCampeonato';
+
+const client = new MongoClient(uri as string);
 
 
 export async function recuperarDadosDaTabela(): Promise<any[]> {
-  const uri = process.env.DATABASE_URL;
-  const dbName = 'Teste';
-  const collectionName = 'TabelaCampeonato';
-
-  const client = new MongoClient(uri as string);
 
   try {
     await client.connect();
@@ -22,6 +23,28 @@ export async function recuperarDadosDaTabela(): Promise<any[]> {
     console.error('Erro ao recuperar os dados da tabela:', error);
     throw error;
   } finally {
-    await client.close();
+    await fecharConexao();
   }
+}
+
+export async function salvarDadosTabelaNoDataBase(lista: TabelaViewModel[]): Promise<string> {
+  try {
+    await client.connect();
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    lista.forEach(async item =>
+      await collection.insertOne(item as TabelaViewModel)
+    )
+    return `Dados salvos`
+  } catch (error) {
+    console.error('Erro ao salvar os dados na tabela:', error);
+    throw error;
+  } finally {
+    await fecharConexao()
+  }
+}
+
+async function fecharConexao() {
+  await client.close();
 }

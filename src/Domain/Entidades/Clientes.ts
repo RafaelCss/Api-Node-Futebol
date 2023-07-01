@@ -1,22 +1,18 @@
-import { Cliente, Endereco } from "../Interfaces/Cliente";
+import { Usuario } from "../Interfaces/Usuario";
 import Erros from "../Interfaces/Erros";
 
 
 
-class Clientes implements Cliente {
+class Usuarios implements Usuario {
   nome!: string;
   email!: string;
-  telefone!: string;
-  endereco?: Endereco | undefined;
-  cpf!: string;
+  senha!: string;
   erro: Array<Erros> = [];
 
-  constructor({ cpf, email, nome, telefone, endereco }: Cliente) {
+  constructor({ email, nome, senha }: Usuario) {
     this.ValidarNome(nome)
     this.ValidarEmail(email)
-    this.ValidarCPF(cpf)
-    this.ValidarTelefone(telefone)
-    this.ValidarEndereco(endereco)
+    this.ValidarSenha(senha)
   }
 
 
@@ -31,13 +27,13 @@ class Clientes implements Cliente {
     return this.nome = nome
   }
 
-  private async ValidarTelefone(telefone: string) {
-    if (telefone.length > 8 || telefone.length < 13) {
-      return this.telefone = telefone
+  private async ValidarSenha(senha: string) {
+    if (senha.length > 8 || senha.length < 13) {
+      return this.senha = senha
     }
     return this.erro.push({
-      campo: 'telefone',
-      mensagem: "Campo invalido"
+      campo: 'Senha',
+      mensagem: "Senha inválida"
     })
   }
 
@@ -52,29 +48,9 @@ class Clientes implements Cliente {
     })
   }
 
-  private async ValidarCPF(cpf: string) {
-    const newCpf = cpf.replace(/[.-]/g, '')
-    if (newCpf) {
-      return this.cpf = newCpf
-    }
-    return this.erro.push({
-      campo: 'cpf',
-      mensagem: "Campo invalido"
-    })
-  }
-
-  private async ValidarEndereco(endereco?: Endereco) {
-    if (endereco) {
-      return this.endereco = {
-        bairro: endereco?.bairro,
-        cidade: endereco?.cidade,
-        rua: endereco?.rua
-      }
-    }
-  }
 
 }
 
 
 
-export default Clientes;
+export default Usuarios;

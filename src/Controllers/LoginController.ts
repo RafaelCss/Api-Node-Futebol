@@ -1,15 +1,12 @@
-import {Router,Request, Response } from 'express'
+import { Router, Request, Response } from 'express'
 import UsuarioLogin from '../Domain/Entidades/UsuarioLogin';
+import { Usuario } from '../Domain/Interfaces/Usuario';
 
 const routerLogin = Router()
 
-routerLogin.get("/", async (req : Request, res : Response)=>{
-    res.send({"msg":"você está conectado"})
-})
-
- routerLogin.post("/login",UsuarioLogin, async (req : Request, res : Response, next)=>{
-  const { nome , senha, checked} = req.body;
-  res.send({nome, checked}).status(201)
+routerLogin.post("/login", UsuarioLogin, async (req: Request, res: Response, next) => {
+  const { senha, email } = req.body as Usuario;
+  res.send({ senha, email }).status(201)
 })
 
 

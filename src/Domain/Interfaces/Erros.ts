@@ -1,5 +1,5 @@
 
 export default interface Erros {
-  campo : string,
-  mensagem: string
+  campo?: string,
+  mensagem?: string
 }

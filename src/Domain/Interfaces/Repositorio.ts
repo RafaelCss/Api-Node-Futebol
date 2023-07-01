@@ -1,7 +1,10 @@
+import { RespostaBanco } from "./RespostaBanco";
+import Retorno from "./Retorno";
+
 export interface Repository<T> {
-  criar?(data: T): any;
-  buscarPorId?(id: string): Promise<T | null>;
-  editar?(id: string, data: T): Promise<T | null>;
-  delete?(id: string): any;
-  findMany(query?: object): any;
+  Criar?(data: T): Promise<boolean | RespostaBanco<T>>;
+  BuscarPorId?(id: string): Retorno<T>;
+  Editar?(id: string, data: T): Retorno<T>;
+  Delete?(id: string): any;
+  FindMany?(query?: object): any;
 }

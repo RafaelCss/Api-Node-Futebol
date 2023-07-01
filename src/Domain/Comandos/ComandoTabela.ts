@@ -6,9 +6,8 @@ import Retorno from "../Interfaces/Retorno";
 
 const repositorio = new TabelaRepository()
 
-
 async function comandoBuscarTabela(query?: IPaginacao): Promise<Retorno<any[]>> {
-  const tabela = await repositorio.findMany()
+  const tabela = await repositorio.FindMany()
   return tabela;
 }
 
