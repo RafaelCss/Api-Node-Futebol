@@ -7,7 +7,7 @@ class Usuarios implements Usuario {
   nome!: string;
   email!: string;
   senha!: string;
-  erro: Array<Erros> = [];
+  erro: Erros[] = [];
 
   constructor({ email, nome, senha }: Usuario) {
     this.ValidarNome(nome)
@@ -19,8 +19,7 @@ class Usuarios implements Usuario {
   private async ValidarNome(nome: string) {
     if (nome.length < 3) {
       return this.erro.push({
-        campo: "nome",
-        mensagem: "Campo invalido"
+        'nome': "Campo invalido"
       })
     }
 
@@ -32,8 +31,7 @@ class Usuarios implements Usuario {
       return this.senha = senha
     }
     return this.erro.push({
-      campo: 'Senha',
-      mensagem: "Senha inválida"
+      'senha': "Senha inválida"
     })
   }
 
@@ -43,8 +41,7 @@ class Usuarios implements Usuario {
       return this.email = email
     }
     return this.erro.push({
-      campo: "email",
-      mensagem: "Campo invalido"
+      'email': "Senha inválida"
     })
   }
 

@@ -13,7 +13,7 @@ async function comandoCadastrarUsuario(usuario: Usuario): Promise<Retorno<Usuari
     email: usuario.email,
     nome: usuario.nome,
   })
-  if (validarCliente.erro[0]) {
+  if (validarCliente.erro) {
     return {
       sucesso: false,
       erros: validarCliente.erro
@@ -26,6 +26,7 @@ async function comandoCadastrarUsuario(usuario: Usuario): Promise<Retorno<Usuari
   })
   return {
     dados: salvar.dados,
+
     sucesso: salvar.sucesso,
     message: salvar.message
   }

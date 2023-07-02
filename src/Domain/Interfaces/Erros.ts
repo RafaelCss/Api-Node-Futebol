@@ -1,5 +1,8 @@
 
 export default interface Erros {
-  campo?: string,
-  mensagem?: string
+  [Key: string]: string,
+}
+
+export interface Dictionary<T> {
+  [Key: string]: T;
 }

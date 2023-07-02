@@ -17,9 +17,6 @@ const routerUsuario = Router();
 
 routerUsuario.post("/cadastro", async (req: Request, res: Response) => {
   const usuario: Usuario = req.body as Usuario;
-  if(!typeof usuario){
-    res.send().status(500)
-  }
   const comando = await servico.comandoCadastrarUsuario(usuario)
   res.send(comando)
 })

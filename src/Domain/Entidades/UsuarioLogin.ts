@@ -1,10 +1,8 @@
-import { Router, Request, Response, NextFunction } from 'express'
+import {Request, Response, NextFunction } from 'express'
+import { Usuario } from '../Interfaces/Usuario';
 
   function UsuarioLogin(req : Request, res : Response, next : NextFunction ) {
-  const {nome , senha, checked} = req.body
-  if( nome === 'desafiosharenergy' && senha ==='sh@r3n3rgy'){
-   return next()
-  }
+  const {senha, email} = req.body as Usuario
   res.send({erro :"Usuario ou senha invalida"})
 }
 
