@@ -33,15 +33,17 @@ export async function salvarDadosTabelaNoDataBase(lista: TabelaViewModel[]): Pro
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
 
-    lista.forEach(async item =>
-      await collection.insertOne(item as TabelaViewModel)
-    )
-    return `Dados salvos`
+    for (const item of lista) {
+      const insert = await collection.insertOne(item as TabelaViewModel);
+      console.log(insert);
+    }
+
+    return 'Dados salvos';
   } catch (error) {
     console.error('Erro ao salvar os dados na tabela:', error);
     throw error;
   } finally {
-    await fecharConexao()
+    await fecharConexao();
   }
 }
 
