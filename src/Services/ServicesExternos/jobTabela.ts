@@ -6,15 +6,18 @@ async function salvarTabelaNoBancoDeDados() {
   const resposta: any[] = await apiTabelaCampeonato.get('tabela')
     .then(res => res.data)
     .catch(err => console.error(err))
-  cron.schedule('0 0 8,12,16 * * *', async () => {
-    try {
-      await salvarDadosTabelaNoDataBase(resposta);
-      console.log('Job executado com sucesso');
-    } catch (error) {
-      console.error('Erro ao executar o job:', error);
-    }
-  });
+
+  return resposta;
 }
 
+cron.schedule("* * * * *", async () => {
+  try {
+    await salvarDadosTabelaNoDataBase(await salvarTabelaNoBancoDeDados());
+    console.log('Job executado com sucesso');
+    console.log(new Date())
+  } catch (error) {
+    console.error('Erro ao executar o job:', error);
+  }
+});
 
 export default salvarTabelaNoBancoDeDados
