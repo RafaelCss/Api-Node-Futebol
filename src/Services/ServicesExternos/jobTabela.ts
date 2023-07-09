@@ -10,7 +10,7 @@ async function salvarTabelaNoBancoDeDados() {
   return resposta;
 }
 
-cron.schedule("* * * * *", async () => {
+cron.schedule('0 0 8,12,16 * * *', async () => {
   try {
     await salvarDadosTabelaNoDataBase(await salvarTabelaNoBancoDeDados());
     console.log('Job executado com sucesso');
