@@ -1,7 +1,10 @@
 import { Usuario } from "../Interfaces/Usuario";
 import Erros from "../Interfaces/Erros";
 
-
+interface ErrorMessage {
+  property: string;
+  message: string;
+}
 
 class Usuarios implements Usuario {
   nome!: string;
@@ -19,7 +22,8 @@ class Usuarios implements Usuario {
   private async ValidarNome(nome: string) {
     if (nome.length < 3) {
       return this.erro.push({
-        'nome': "Campo invalido"
+        'property': "nome",
+        'message': "Campo invalido"
       })
     }
 
@@ -27,11 +31,12 @@ class Usuarios implements Usuario {
   }
 
   private async ValidarSenha(senha: string) {
-    if (senha.length > 8 || senha.length < 13) {
+    if (senha.length < 8 || senha.length < 13) {
       return this.senha = senha
     }
-    return this.erro.push({
-      'senha': "Senha inválida"
+    this.erro.push({
+      'property': "senha",
+      'message': "Campo invalido"
     })
   }
 
@@ -40,8 +45,9 @@ class Usuarios implements Usuario {
     if (regex.test(email) === true) {
       return this.email = email
     }
-    return this.erro.push({
-      'email': "Senha inválida"
+    this.erro.push({
+      'property': "email",
+      'message': "Este email é invalido"
     })
   }
 
