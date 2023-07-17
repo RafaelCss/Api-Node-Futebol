@@ -10,14 +10,5 @@ async function salvarTabelaNoBancoDeDados() {
   return resposta;
 }
 
-cron.schedule('0 0 8,12,16 * * *', async () => {
-  try {
-    await salvarDadosTabelaNoDataBase(await salvarTabelaNoBancoDeDados());
-    console.log('Job executado com sucesso');
-    console.log(new Date())
-  } catch (error) {
-    console.error('Erro ao executar o job:', error);
-  }
-});
 
 export default salvarTabelaNoBancoDeDados
