@@ -1,6 +1,5 @@
-import { salvarDadosTabelaNoDataBase } from '../../Infra/MongoDb'
 import apiTabelaCampeonato from './servicoTabela'
-import cron from 'node-cron';
+
 
 async function salvarTabelaNoBancoDeDados() {
   const resposta: any[] = await apiTabelaCampeonato.get('tabela')
