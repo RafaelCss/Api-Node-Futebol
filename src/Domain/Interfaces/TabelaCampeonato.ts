@@ -17,7 +17,7 @@ export interface TabelaViewModel {
 }
 
 interface Time {
-  timeId: number;
+  time_id: number;
   nomePopular: string;
   sigla: string;
   escudo: string;

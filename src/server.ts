@@ -24,8 +24,8 @@ app.get("/", async (_req: Request, res: Response) => {
 })
 
 
-cron.schedule('8 12 * * *', async () => {
-  try {
+cron.schedule('17-18 0 10-18 ? * * *', async () => {
+  try { 
     await salvarDadosTabelaNoDataBase(await salvarTabelaNoBancoDeDados());
     console.log('Job executado com sucesso');
     console.log(new Date())
