@@ -1,3 +1,4 @@
+import { TabelaPayload } from '@prisma/client';
 import IPaginacao from '../../Domain/Interfaces/Paginacao';
 import { Repository } from '../../Domain/Interfaces/Repositorio';
 import Retorno from '../../Domain/Interfaces/Retorno';
@@ -7,12 +8,8 @@ import { recuperarDadosDaTabela } from '../MongoDb';
 class TabelaRepository implements Repository<TabelaViewModel> {
 
   //#region TODO: Buscar clientes
-  async FindMany(query?: IPaginacao | undefined): Promise<Retorno<TabelaViewModel[]>> {
-    const retorno: any = await recuperarDadosDaTabela()
-      .then((dados) => dados)
-      .catch((error) => {
-        console.error('Erro ao recuperar os dados da tabela:', error);
-      });
+  async FindMany(query?: IPaginacao | undefined): Promise<TabelaPayload[]> {
+    const retorno : TabelaPayload[] = await recuperarDadosDaTabela()
     return retorno
   }
   //#endregion

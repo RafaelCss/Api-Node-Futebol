@@ -12,6 +12,7 @@ tabelaCampeonato.get("/tabela", async (req: Request, res: Response) => {
     skip: Number(paginacao.skip) ? Number(paginacao.skip) : 0,
     take: Number(paginacao.take) ? Number(paginacao.take) : 10
   } as IPaginacao)
+
   res.send(comando)
 })
 
