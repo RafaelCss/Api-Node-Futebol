@@ -24,15 +24,15 @@ app.get("/", async (_req: Request, res: Response) => {
 })
 
 
-cron.schedule('17-18 0 10-18 ? * * *', async () => {
-  try { 
-    await salvarDadosTabelaNoDataBase(await salvarTabelaNoBancoDeDados());
-    console.log('Job executado com sucesso');
-    console.log(new Date())
-  } catch (error) {
-    console.error('Erro ao executar o job:', error);
-  }
-});
+// cron.schedule('17-18 0 10-18 ? * * *', async () => {
+//   try { 
+//     await salvarDadosTabelaNoDataBase(await salvarTabelaNoBancoDeDados());
+//     console.log('Job executado com sucesso');
+//     console.log(new Date())
+//   } catch (error) {
+//     console.error('Erro ao executar o job:', error);
+//   }
+// });
 
 app.listen(port, () => {
   console.log(`Você está conectado na porta ${port}`)
