@@ -1,7 +1,7 @@
 import apiTabelaCampeonato from './servicoTabela'
 
 
-async function salvarTabelaNoBancoDeDados() {
+async function buscarDadosTabelaCampeonato() {
   const resposta: any[] = await apiTabelaCampeonato.get('tabela')
     .then(res => res.data)
     .catch(err => console.error(err))
@@ -10,4 +10,4 @@ async function salvarTabelaNoBancoDeDados() {
 }
 
 
-export default salvarTabelaNoBancoDeDados
+export default buscarDadosTabelaCampeonato

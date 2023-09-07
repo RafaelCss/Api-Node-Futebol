@@ -32,9 +32,7 @@ export async function salvarDadosTabelaNoDataBase(lista: TabelaViewModel[]): Pro
     const collection = db.collection(collectionName);
 
     for (const item of lista) {
-      const filter = { time: { 
-        time_id
-        : item.time.time_id } }; // Critério de pesquisa pelo ID do time
+      const filter = { "time.time_id": item.time.time_id }; // Critério de pesquisa pelo ID do time
       const update = { $set: { ...item } }; // Atualizações que deseja aplicar ao documento
 
       const options = { upsert: true }; // Opção para realizar o upsert

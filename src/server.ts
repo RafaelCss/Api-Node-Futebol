@@ -6,7 +6,7 @@ import routerUsuario from "./Controllers/UsuarioController";
 import tabelaCampeonato from "./Controllers/TabelaCampeonato";
 import cron from 'node-cron';
 import { salvarDadosTabelaNoDataBase } from "./Infra/MongoDb";
-import salvarTabelaNoBancoDeDados from "./Services/ServicesExternos/jobTabela";
+import buscarDadosTabelaCampeonato from "./Services/ServicesExternos/jobTabela";
 
 const app = express();
 
@@ -24,16 +24,25 @@ app.get("/", async (_req: Request, res: Response) => {
 })
 
 
-// cron.schedule('17-18 0 10-18 ? * * *', async () => {
-//   try { 
-//     await salvarDadosTabelaNoDataBase(await salvarTabelaNoBancoDeDados());
+
+cron.schedule('0 10,18  * * *', async () => {
+  try { 
+    await salvarDadosTabelaNoDataBase(await buscarDadosTabelaCampeonato());
+    console.log('Job executado com sucesso');
+    console.log(new Date());
+  } catch (error) {
+    console.error('Erro ao executar o job:', error);
+  }
+});
+// cron.schedule('* * * * *', async () => {
+//   try {
+//     await salvarDadosTabelaNoDataBase(await buscarDadosTabelaCampeonato());
 //     console.log('Job executado com sucesso');
-//     console.log(new Date())
+//     console.log(new Date());
 //   } catch (error) {
 //     console.error('Erro ao executar o job:', error);
 //   }
 // });
-
 app.listen(port, () => {
   console.log(`Você está conectado na porta ${port}`)
 })
