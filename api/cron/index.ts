@@ -1,5 +1,5 @@
-import { salvarDadosTabelaNoDataBase } from '../../Infra/MongoDb';
-import buscarDadosTabelaCampeonato from '../../Services/ServicesExternos/jobTabela';
+import { salvarDadosTabelaNoDataBase } from '../../src/Infra/MongoDb';
+import buscarDadosTabelaCampeonato from '../../src/Services/ServicesExternos/jobTabela';
 
 export default async function handler() {
   await salvarDadosTabelaNoDataBase(await buscarDadosTabelaCampeonato());
