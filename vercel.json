@@ -13,7 +13,8 @@
     }
   ],
   "crons": [{
-    "path": "/api/cron",
-    "schedule": "0 10 * * *"
+    "path": "src/api/cron",
+    "schedule": "0 10 * * *",
+    "use" : "@vercel/node"
   }]
 }
