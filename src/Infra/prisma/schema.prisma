@@ -15,8 +15,8 @@ model User {
   nome String @unique
   email String
   senha String
-  create_at DateTime @default(now())
-  update_at DateTime @updatedAt
+  create_at DateTime? @default(now())
+  update_at DateTime? @updatedAt
 }
 
 model Tabela {

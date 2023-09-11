@@ -3,7 +3,6 @@ import Retorno from "../Interfaces/Retorno";
 import Usuarios from "../Entidades/Clientes";
 import UsuarioRepository from "../../Infra/Repositorios/RepositorioUsuario";
 
-
 const repositorio = new UsuarioRepository()
 
 async function comandoCadastrarUsuario(usuario: Usuario): Promise<Retorno<Usuario>> {
