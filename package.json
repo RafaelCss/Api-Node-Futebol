@@ -11,7 +11,7 @@
   "author": "Rafael carlos de souza",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^4.16.1",
+    "@prisma/client": "^4.16.2",
     "@types/cors": "^2.8.13",
     "axios": "^1.4.0",
     "cors": "^2.8.5",

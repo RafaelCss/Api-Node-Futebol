@@ -34,13 +34,14 @@ app.get("/", async (_req: Request, res: Response) => {
 //     console.error('Erro ao executar o job:', error);
 //   }
 // });
-// // cron.schedule('* * * * *', async () => {
+// cron.schedule('* * * * *', async () => {
 //   try {
 //     await salvarDadosTabelaNoDataBase(await buscarDadosTabelaCampeonato());
 //     console.log('Job executado com sucesso');
 //     console.log(new Date());
 //   } catch (error) {
 //     console.error('Erro ao executar o job:', error);
+
 //   }
 // });
 app.listen(port, () => {

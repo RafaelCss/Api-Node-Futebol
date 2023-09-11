@@ -13,7 +13,7 @@ async function comandoCadastrarUsuario(usuario: Usuario): Promise<Retorno<Usuari
     email: usuario.email,
     nome: usuario.nome,
   })
-  if (validarCliente.erro) {
+  if (validarCliente.erro.length > 0) {
     return {
       sucesso: false,
       erros: validarCliente.erro
