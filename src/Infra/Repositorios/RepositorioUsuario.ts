@@ -1,4 +1,4 @@
-import { Usuario } from '../../Domain/Interfaces/Usuario';
+import { LoginUsuario, Usuario } from '../../Domain/Interfaces/Usuario';
 import { Repository } from '../../Domain/Interfaces/Repositorio';
 
 import { RespostaBanco } from '../../Domain/Interfaces/RespostaBanco';
@@ -32,8 +32,8 @@ class UsuarioRepository implements Repository<Usuario> {
       })
       .catch((err: any) => console.log(err));
 
-      console.log(userExiste)
     if (userExiste) {
+      await this.Desconectar();
       return {
         sucesso: false,
         dados: [],
@@ -55,6 +55,36 @@ class UsuarioRepository implements Repository<Usuario> {
       sucesso: true,
       dados: [{ id: salvarUsuario.id }] as any
     };
+  }
+
+  async LogarUsuario(usuario : LoginUsuario) :Promise<RespostaBanco<Usuario>>{
+
+    await this.Conectar();
+    const userExiste = await this.prisma.user
+      .findFirst({
+        where: {
+          email: usuario?.email,
+          senha:usuario?.senha,
+        },
+        select: {
+          id: true,
+          email:true,
+          nome:true,
+        }
+      })
+      .catch((err: any) => console.log(err));
+      if (userExiste) {
+        await this.Desconectar();
+        return {
+          sucesso: true,
+          dados: [{ id: userExiste.id, email:userExiste.email, nome:userExiste.nome }] as any
+        };
+      }
+      await this.Desconectar();
+      return {
+        sucesso: false,
+        message:'Usuário não encontrado'
+      };
   }
 }
 

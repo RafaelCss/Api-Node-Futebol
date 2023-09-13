@@ -6,3 +6,13 @@ export interface Usuario {
   create_at?: Date
   update_at?: Date
 }
+
+export interface LoginUsuario {
+  email: string
+  senha: string
+}
+
+export interface TokenUsuario {
+  token: string;
+  expires:number;
+}
