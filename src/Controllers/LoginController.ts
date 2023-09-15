@@ -4,8 +4,7 @@ import UsuarioLogin from '../Domain/Entidades/UsuarioLogin';
 
 const routerLogin = Router()
 
-routerLogin.post("/login", UsuarioLogin, async (req: Request, res: Response, next) => {
-})
+routerLogin.post("/login", UsuarioLogin)
 
 
 
