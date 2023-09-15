@@ -57,34 +57,27 @@ class UsuarioRepository implements Repository<Usuario> {
     };
   }
 
-  async LogarUsuario(usuario : LoginUsuario) :Promise<RespostaBanco<Usuario>>{
-
+  async BuscarUsuario(usuario: LoginUsuario): Promise<Usuario | null> {
     await this.Conectar();
     const userExiste = await this.prisma.user
       .findFirst({
         where: {
           email: usuario?.email,
-          senha:usuario?.senha,
+          senha: usuario?.senha
         },
         select: {
           id: true,
-          email:true,
-          nome:true,
+          email: true,
+          nome: true
         }
       })
       .catch((err: any) => console.log(err));
-      if (userExiste) {
-        await this.Desconectar();
-        return {
-          sucesso: true,
-          dados: [{ id: userExiste.id, email:userExiste.email, nome:userExiste.nome }] as any
-        };
-      }
+    if (userExiste) {
       await this.Desconectar();
-      return {
-        sucesso: false,
-        message:'Usuário não encontrado'
-      };
+      return userExiste;
+    }
+    await this.Desconectar();
+    return userExiste as null;
   }
 }
 

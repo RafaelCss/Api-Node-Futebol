@@ -10,14 +10,12 @@ interface PropsToken {
     gerar token usuário
 */
 function gerarToken(dados: PropsToken): string {
-  const secret = process.env.SECRETJWT as string;
+  const secret = process.env.SECRETJWT?.toString() as string;
   const token = jwt.sign(dados, secret, {
-    algorithm: 'RS256',
+    algorithm: 'HS256',
     expiresIn: 3600
   });
-
-    console.log(token)
   return token;
 }
 
-export { gerarToken };
+export default gerarToken ;

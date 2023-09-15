@@ -2,6 +2,7 @@ import { LoginUsuario, Usuario } from "../Interfaces/Usuario";
 import Retorno from "../Interfaces/Retorno";
 import Usuarios from "../Entidades/Clientes";
 import UsuarioRepository from "../../Infra/Repositorios/RepositorioUsuario";
+import gerarToken from "../../Services/Seguranca/GerarToken";
 
 const repositorio = new UsuarioRepository()
 
@@ -30,15 +31,23 @@ async function comandoCadastrarUsuario(usuario: Usuario): Promise<Retorno<Usuari
   }
 }
 
-async function comandoLogarUsuario(usuario: LoginUsuario): Promise<Retorno<Usuario>> {
-  const salvar = await repositorio.LogarUsuario({
-    senha: usuario.senha,
-    email: usuario.email,
+async function comandoLogarUsuario(dados: LoginUsuario): Promise<Retorno<Usuario>> {
+  const usuario = await repositorio.BuscarUsuario({
+    senha: dados.senha,
+    email: dados.email,
   })
+
+  if(usuario){
+   const token =  gerarToken(usuario as any)
+    return {
+      dados: token as any,
+      sucesso: true,
+      message:''
+    }
+  }
   return {
-    dados: salvar.dados,
-    sucesso: salvar.sucesso,
-    message: salvar.message
+    sucesso: false,
+    message:''
   }
 }
 
