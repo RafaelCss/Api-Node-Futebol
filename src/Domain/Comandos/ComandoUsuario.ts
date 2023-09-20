@@ -31,7 +31,7 @@ async function comandoCadastrarUsuario(usuario: Usuario): Promise<Retorno<Usuari
   }
 }
 
-async function comandoLogarUsuario(dados: LoginUsuario): Promise<Retorno<Usuario>> {
+async function comandoLogarUsuario(dados: any): Promise<Retorno<Usuario>> {
   const usuario = await repositorio.BuscarUsuario({
     senha: dados.senha,
     email: dados.email,
