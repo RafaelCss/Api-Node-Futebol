@@ -1,7 +1,7 @@
 import Erros from "./Erros"
 import IPaginacao from "./Paginacao"
 
-interface Retorno<T> {
+export interface Retorno<T> {
   dados?: T[]
   erros?: Erros[] | Erros
   paginacao?: IPaginacao
@@ -9,5 +9,12 @@ interface Retorno<T> {
   message?: string
 }
 
+export interface RetornoToken {
+  access_token: string;
+  token_type?: "Bearer";
+  expires_in: number;
+  refresh_token?: string;
+  scope?: string;
+}
 
-export default Retorno
+

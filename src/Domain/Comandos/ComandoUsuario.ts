@@ -1,5 +1,5 @@
 import { LoginUsuario, Usuario } from "../Interfaces/Usuario";
-import Retorno from "../Interfaces/Retorno";
+import {Retorno, RetornoToken } from "../Interfaces/Retorno";
 import Usuarios from "../Entidades/Clientes";
 import UsuarioRepository from "../../Infra/Repositorios/RepositorioUsuario";
 import gerarToken from "../../Services/Seguranca/GerarToken";
@@ -31,7 +31,7 @@ async function comandoCadastrarUsuario(usuario: Usuario): Promise<Retorno<Usuari
   }
 }
 
-async function comandoLogarUsuario(dados: any): Promise<Retorno<Usuario>> {
+async function comandoLogarUsuario(dados: any): Promise<RetornoToken | null> {
   const usuario = await repositorio.BuscarUsuario({
     senha: dados.senha,
     email: dados.email,
@@ -40,15 +40,12 @@ async function comandoLogarUsuario(dados: any): Promise<Retorno<Usuario>> {
   if(usuario){
    const token =  gerarToken(usuario as any)
     return {
-      dados: token as any,
-      sucesso: true,
-      message:''
+      access_token:token,
+      refresh_token:token,
+      expires_in:3600,
     }
   }
-  return {
-    sucesso: false,
-    message:''
-  }
+  return null;
 }
 
 

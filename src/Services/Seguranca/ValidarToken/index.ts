@@ -1,11 +1,30 @@
-import jwt from 'jsonwebtoken';
+import jwt,{ VerifyErrors, JwtPayload } from 'jsonwebtoken';
+import { Request, Response, NextFunction } from 'express';
 
-function validarToken(token : string){
-    const secret = process.env.SECRETJWT as string;
-    try {
-        const decoded = jwt.verify(token, secret, { algorithms: ['HS256'] });
-        console.log(decoded);
-      } catch (error) {
-        console.error('A verificação do JWT falhou:', error);
-      }
+declare global {
+  namespace Express {
+    interface Request {
+      usuario?: JwtPayload; // Isso permite adicionar a propriedade 'usuario' ao objeto de solicitação
+    }
+  }
 }
+
+
+function validarToken(req: Request, res: Response, next: NextFunction){
+    const secret = process.env.SECRETJWT as string;
+    const token = req.headers.authorization as string;
+    if (!token) {
+      return res.status(401).json({ mensagem: 'Token não fornecido' });
+    }
+
+    jwt.verify(token.split(' ')[1], secret, (err: any, decoded: any) => {
+      if (err) {
+        return res.status(403).json({ mensagem: 'Token inválido' });
+      }
+      req.usuario = decoded;
+      next();
+    });
+}
+
+
+export default validarToken;
