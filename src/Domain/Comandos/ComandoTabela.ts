@@ -1,7 +1,7 @@
 
 import TabelaRepository from "../../Infra/Repositorios/TabelaRepository";
 import IPaginacao from "../Interfaces/Paginacao";
-import Retorno from "../Interfaces/Retorno";
+import {Retorno }from "../Interfaces/Retorno";
 import { TabelaViewModel } from "../Interfaces/TabelaCampeonato";
 
 

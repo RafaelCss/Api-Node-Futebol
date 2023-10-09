@@ -1,5 +1,5 @@
 import { RespostaBanco } from "./RespostaBanco";
-import Retorno from "./Retorno";
+import {Retorno} from "./Retorno";
 
 export interface Repository<T> {
   Criar?(data: T): Promise<boolean | RespostaBanco<T>>;

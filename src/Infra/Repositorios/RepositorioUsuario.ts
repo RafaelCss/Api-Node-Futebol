@@ -44,7 +44,7 @@ class UsuarioRepository implements Repository<Usuario> {
       data: {
         email: data.email,
         nome: data.nome,
-        senha: data.senha
+        senha: data.senha as string
       },
       select: {
         id: true

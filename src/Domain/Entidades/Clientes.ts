@@ -15,7 +15,7 @@ class Usuarios implements Usuario {
   constructor({ email, nome, senha }: Usuario) {
     this.ValidarNome(nome)
     this.ValidarEmail(email)
-    this.ValidarSenha(senha)
+    this.ValidarSenha(senha as string)
   }
 
 
