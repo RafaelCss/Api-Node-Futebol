@@ -10,13 +10,13 @@ declare global {
 }
 
 
-function validarToken(req: Request, res: Response, next: NextFunction){
+function ValidarToken(req: Request, res: Response, next: NextFunction){
     const secret = process.env.SECRETJWT as string;
     const token = req.headers.authorization as string;
+    console.log(token)
     if (!token) {
       return res.status(401).json({ mensagem: 'Token não fornecido' });
     }
-
     jwt.verify(token.split(' ')[1], secret, (err: any, decoded: any) => {
       if (err) {
         return res.status(403).json({ mensagem: 'Token inválido' });
@@ -27,4 +27,4 @@ function validarToken(req: Request, res: Response, next: NextFunction){
 }
 
 
-export default validarToken;
+export default ValidarToken;

@@ -10,11 +10,18 @@ export interface Retorno<T> {
 }
 
 export interface RetornoToken {
-  access_token: string;
+  access_token?: string;
   token_type?: "Bearer";
-  expires_in: number;
+  //expires: number;
   refresh_token?: string;
   scope?: string;
+  name?:string;
+  email?:string
+  user?:{
+    accessToken: string;
+    name?:string;
+    email?:string
+  },
 }
 
 
