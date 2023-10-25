@@ -10,10 +10,10 @@ declare global {
 }
 
 
-function ValidarToken(req: Request, res: Response, next: NextFunction){
+function validarToken(req: Request, res: Response, next: NextFunction){
     const secret = process.env.SECRETJWT as string;
     const token = req.headers.authorization as string;
-    console.log(token)
+    console.log(req)
     if (!token) {
       return res.status(401).json({ mensagem: 'Token não fornecido' });
     }
@@ -27,4 +27,4 @@ function ValidarToken(req: Request, res: Response, next: NextFunction){
 }
 
 
-export default ValidarToken;
+export default validarToken;
