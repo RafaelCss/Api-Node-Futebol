@@ -16,6 +16,7 @@ export async function recuperarDadosDaTabela(): Promise<any[]> {
     const collection = db.collection(collectionName);
 
     const dados = await collection.find().toArray();
+
     return dados;
   } catch (error) {
     console.error('Erro ao recuperar os dados da tabela:', error);
@@ -38,7 +39,6 @@ export async function salvarDadosTabelaNoDataBase(lista: TabelaViewModel[]): Pro
       const options = { upsert: true }; // Opção para realizar o upsert
 
       const result = await collection.updateOne(filter, update, options);
-      console.log(result);
     }
 
     return 'Dados salvos';

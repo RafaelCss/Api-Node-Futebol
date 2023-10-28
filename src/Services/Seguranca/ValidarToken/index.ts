@@ -13,7 +13,7 @@ declare global {
 function validarToken(req: Request, res: Response, next: NextFunction){
     const secret = process.env.SECRETJWT as string;
     const token = req.headers.authorization as string;
-    console.log(req)
+
     if (!token) {
       return res.status(401).json({ mensagem: 'Token não fornecido' });
     }
