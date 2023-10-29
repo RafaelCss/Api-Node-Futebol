@@ -39,10 +39,13 @@ async function comandoLogarUsuario(dados: any): Promise<RetornoToken | null> {
   if (usuario) {
     const token = gerarToken(usuario as any);
     return {
-      access_token: token,
-      name: usuario?.nome,
-      email: usuario?.email,
-      token_type: 'Bearer',
+      user: {
+        access_token: token,
+        name: usuario?.nome,
+        email: usuario?.email,
+        token_type: 'Bearer'
+      },
+      expires: 1000 * 2
     };
   }
   return null;
