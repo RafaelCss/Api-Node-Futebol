@@ -10,7 +10,7 @@ import buscarDadosTabelaCampeonato from "./Services/ServicesExternos/jobTabela";
 
 const app = express();
 
-app.use(cors({ origin: "*" }))
+app.use(cors({ origin: "*" ,credentials:true, allowedHeaders:["content-type"]}))
 app.use(express.json());
 app.use("/api", routerLogin)
 app.use("/api", routerUsuario)
