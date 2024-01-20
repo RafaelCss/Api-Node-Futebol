@@ -1,7 +1,8 @@
 import { Router, Request, Response } from 'express'
 import servico from '../Domain/Comandos/ComandoTabela';;
 import IPaginacao from '../Domain/Interfaces/Paginacao';
-import validarToken from '../Services/Seguranca/ValidarToken';
+import { validarToken } from '../Services/Seguranca/ValidarToken';
+
 
 
 const tabelaCampeonato = Router();

@@ -79,6 +79,30 @@ class UsuarioRepository implements Repository<Usuario> {
     await this.Desconectar();
     return userExiste as null;
   }
+
+  async BuscarUsuarioPorEmail(usuario: LoginUsuario): Promise<Usuario | null> {
+    await this.Conectar();
+    const userExiste = await this.prisma.user
+      .findFirst({
+        where: {
+          email: usuario?.email,
+        },
+        select: {
+          id: true,
+          email: true,
+          nome: true
+        }
+      })
+      .catch((err: any) => console.log(err));
+    if (userExiste) {
+      await this.Desconectar();
+      return userExiste;
+    }
+    await this.Desconectar();
+    return userExiste as null;
+  }
+  
 }
+
 
 export default UsuarioRepository;
