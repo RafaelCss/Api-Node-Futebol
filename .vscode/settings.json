@@ -23,5 +23,6 @@
     "Usuarios",
     "variacao"
   ],
-  "dotenv.enableAutocloaking": false
+  "dotenv.enableAutocloaking": false,
+  "CodeGPT.apiKey": "CodeGPT Plus Beta"
 }

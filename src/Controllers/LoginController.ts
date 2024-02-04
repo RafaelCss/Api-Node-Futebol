@@ -10,8 +10,7 @@ routerLogin.post("/login", UsuarioLogin)
 
 routerLogin.post('/refresh-token',async (req, res, next) => {
     const retorno = await validarRefreshToken(req, res, next)
-   const refresh =  await servico.comandoGerarRefreshToken(retorno as any)
-
+   const refresh =  await servico.gerarRefreshTokenUsuario(retorno as any)
    res.send(refresh)
 });
 
