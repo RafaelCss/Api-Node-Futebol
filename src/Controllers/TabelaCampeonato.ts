@@ -7,7 +7,6 @@ import { validarToken } from '../Services/Seguranca/ValidarToken';
 
 const tabelaCampeonato = Router();
 
-//validarToken do usuario logado,
 tabelaCampeonato.get("/tabela",validarToken ,async (req: Request, res: Response) => {
     const comando = await servico.comandoBuscarTabela()
     res.send(comando)

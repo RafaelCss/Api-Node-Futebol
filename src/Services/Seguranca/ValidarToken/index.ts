@@ -22,6 +22,7 @@ export function validarToken(req: Request, res: Response, next: NextFunction){
         return res.status(403).json({ mensagem: 'Token inválido' });
       }
       req.usuario = decoded;
+      console.log(decoded)
       next();
     });
 }
@@ -30,6 +31,7 @@ export async function validarRefreshToken(req: Request, res: Response, next: Nex
   const secret = process.env.SECRETJWT as string;
   const token = req.headers.authorization as string;
   const  refreshToken  :  string = req.query.refresh_token as string  ;
+
   if (!refreshToken) {
     return res.status(401).json({ mensagem: 'Token não fornecido' });
   }
