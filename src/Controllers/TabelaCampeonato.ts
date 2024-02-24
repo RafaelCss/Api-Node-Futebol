@@ -15,7 +15,7 @@ tabelaCampeonato.get("/tabela",validarToken ,async (req: Request, res: Response)
 })
 
 
-tabelaCampeonato.get("/atualizar-tabela",async (req: Request, res: Response) => {
+tabelaCampeonato.get("/tabela/atualizar-tabela",async (req: Request, res: Response) => {
   try { 
     await salvarDadosTabelaNoDataBase(await buscarDadosTabelaCampeonato());
     console.log('Job executado com sucesso');
