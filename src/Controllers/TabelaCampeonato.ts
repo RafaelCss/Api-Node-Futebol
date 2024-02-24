@@ -20,8 +20,10 @@ tabelaCampeonato.get("/tabela/atualizar-tabela",async (req: Request, res: Respon
     await salvarDadosTabelaNoDataBase(await buscarDadosTabelaCampeonato());
     console.log('Job executado com sucesso');
     console.log(new Date());
+    res.status(200).end("Busca feita com sucesso")
   } catch (error) {
     console.error('Erro ao executar o job:', error);
+    res.status(400).send("Erro ao buscar tabela")
   }
   console.log('Job executado com sucesso', new Date());
 })
