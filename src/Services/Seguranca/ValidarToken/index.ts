@@ -22,7 +22,6 @@ export function validarToken(req: Request, res: Response, next: NextFunction){
         return res.status(403).json({ mensagem: 'Token inválido' });
       }
       req.usuario = decoded;
-      console.log(decoded)
       next();
     });
 }

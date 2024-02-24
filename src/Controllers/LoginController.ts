@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express'
 import UsuarioLogin from '../Domain/Entidades/UsuarioLogin';
 import { validarRefreshToken } from '../Services/Seguranca/ValidarToken';
-import servico from '../Domain/Comandos/ComandoUsuario'
+import servico from '../Domain/Comandos/Usuario/ComandoLogarUsuario'
 
 
 const routerLogin = Router()

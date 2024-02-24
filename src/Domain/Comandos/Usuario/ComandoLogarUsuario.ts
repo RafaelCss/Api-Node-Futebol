@@ -1,15 +1,17 @@
-import { LoginUsuario, Usuario } from '../Interfaces/Usuario';
-import { Retorno, RetornoToken } from '../Interfaces/Retorno';
-import Usuarios from '../Entidades/Clientes';
-import UsuarioRepository from '../../Infra/Repositorios/RepositorioUsuario';
-import { gerarToken } from '../../Services/Seguranca/GerarToken';
-import { gerarRefreshToken } from '../../Services/Seguranca/GerarRefreshToken';
+import { LoginUsuario, Usuario } from '../../Interfaces/Usuario';
+import { Retorno, RetornoToken } from '../../Interfaces/Retorno';
+import Usuarios from '../../Entidades/Clientes';
+import UsuarioRepository from '../../../Infra/Repositorios/RepositorioUsuario';
+import { gerarToken } from '../../../Services/Seguranca/GerarToken';
+import { gerarRefreshToken } from '../../../Services/Seguranca/GerarRefreshToken';
+import CadastrarUsuarioComando from './ComandoCadastrarUsuario';
+
 
 const repositorio = new UsuarioRepository();
 
 interface SessionData {
   accessToken: string;
-  token: string
+  token: string;
   name: string | undefined;
   email: string | undefined;
   token_type: string;
@@ -29,7 +31,6 @@ async function validarCliente(usuario: Usuario): Promise<Retorno<Usuario>> {
       erros: validarCliente.erro
     };
   }
-
   const salvar = await repositorio.Criar({
     senha: validarCliente.senha,
     email: validarCliente.email,
@@ -44,14 +45,12 @@ async function validarCliente(usuario: Usuario): Promise<Retorno<Usuario>> {
 }
 
 async function loginUsuario(dados: any): Promise<RetornoToken | null> {
-  
   const usuario = await repositorio.BuscarUsuario({
     senha: dados?.senha,
     email: dados?.email
   });
-
   if (usuario) {
-    const token =  gerarToken(usuario as any);
+    const token = gerarToken(usuario as any);
     const refreshToken = await gerarRefreshToken(usuario as any);
 
     return {
@@ -68,13 +67,12 @@ async function loginUsuario(dados: any): Promise<RetornoToken | null> {
 }
 
 async function gerarRefreshTokenUsuario(dados: any): Promise<RetornoToken | null> {
-
   const usuario = await repositorio.BuscarUsuarioPorEmail({
     email: dados?.email
   } as any);
 
   if (usuario) {
-    const token =  gerarToken(usuario as any);
+    const token = gerarToken(usuario as any);
 
     return {
       access_token: token,
@@ -83,7 +81,6 @@ async function gerarRefreshTokenUsuario(dados: any): Promise<RetornoToken | null
       refresh_token: await gerarRefreshToken(usuario as any)
     } as any;
   }
-
   return null;
 }
 
@@ -97,11 +94,10 @@ function formatSessionData(token: string, usuario: any, refreshToken: string): S
     refresh_token: refreshToken
   };
 }
-
 function formatUserData(token: string, usuario: any, refreshToken: string): SessionData {
   return {
     token: token,
-    accessToken:token,
+    accessToken: token,
     name: usuario?.nome,
     email: usuario?.email,
     token_type: 'Bearer',
