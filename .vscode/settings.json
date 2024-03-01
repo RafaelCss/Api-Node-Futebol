@@ -24,5 +24,6 @@
     "variacao"
   ],
   "dotenv.enableAutocloaking": false,
-  "CodeGPT.apiKey": "CodeGPT Plus Beta"
+  "CodeGPT.apiKey": "CodeGPT Plus Beta",
+  "accessibility.voice.speechLanguage": "en-US"
 }

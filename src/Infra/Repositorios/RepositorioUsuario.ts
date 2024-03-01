@@ -3,7 +3,9 @@ import { Repository } from '../../Domain/Interfaces/Repositorio';
 
 import { RespostaBanco } from '../../Domain/Interfaces/RespostaBanco';
 import { PrismaClient } from '@prisma/client';
+import EncryptSenha from '../../Services/Seguranca/Senha';
 
+const encryptSenha = new EncryptSenha();
 class UsuarioRepository implements Repository<Usuario> {
   private prisma;
 
@@ -20,6 +22,7 @@ class UsuarioRepository implements Repository<Usuario> {
   }
 
   async Criar(data: Usuario): Promise<RespostaBanco<Usuario>> {
+    const senha = await encryptSenha.gerarSenha(data.senha as string);
     await this.Conectar();
     const userExiste = await this.prisma.user
       .findFirst({
@@ -44,7 +47,7 @@ class UsuarioRepository implements Repository<Usuario> {
       data: {
         email: data.email,
         nome: data.nome,
-        senha: data.senha as string
+        senha: senha
       },
       select: {
         id: true
@@ -63,18 +66,24 @@ class UsuarioRepository implements Repository<Usuario> {
       .findFirst({
         where: {
           email: usuario?.email,
-          senha: usuario?.senha
         },
         select: {
           id: true,
           email: true,
+          senha: true,
           nome: true
         }
       })
       .catch((err: any) => console.log(err));
-    if (userExiste) {
+    const senhaValida = await encryptSenha.checkUser(usuario?.senha, userExiste?.senha as string);
+    console.log(senhaValida)
+    if (userExiste && senhaValida) {
       await this.Desconectar();
-      return userExiste;
+      return {
+        id:userExiste.id,
+        nome:userExiste.nome,
+        email:userExiste.email
+      };
     }
     await this.Desconectar();
     return userExiste as null;
@@ -85,7 +94,7 @@ class UsuarioRepository implements Repository<Usuario> {
     const userExiste = await this.prisma.user
       .findFirst({
         where: {
-          email: usuario?.email,
+          email: usuario?.email
         },
         select: {
           id: true,
@@ -101,8 +110,6 @@ class UsuarioRepository implements Repository<Usuario> {
     await this.Desconectar();
     return userExiste as null;
   }
-  
 }
-
 
 export default UsuarioRepository;
