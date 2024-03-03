@@ -76,7 +76,6 @@ class UsuarioRepository implements Repository<Usuario> {
       })
       .catch((err: any) => console.log(err));
     const senhaValida = await encryptSenha.checkUser(usuario?.senha, userExiste?.senha as string);
-    console.log(senhaValida)
     if (userExiste && senhaValida) {
       await this.Desconectar();
       return {
